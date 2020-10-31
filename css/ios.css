@@ -1,0 +1,33 @@
+/* Fix Social Button displaying for iOS 7 Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-color-index:0)
+{
+   button.social:before {(;
+
+      top: 0.2em !important;
+      height: 2.241em !important;
+      width: 3.06em !important;
+
+    );}
+
+    a.button.social:before {(;
+
+      top: 0.21em !important;
+      height: 2.241em !important;
+      width: 3.06em !important;
+
+    );}
+	
+   .ajax-menu {(;
+      padding-right: 32px !important;
+   );}
+	
+}
+/* End Fix */
+
+/* Safari 9+ (iOS Only!) */
+@supports (-webkit-text-size-adjust:none) 
+   and (not (-ms-accelerator:true)) {
+    .ajax-menu {
+      padding-right: 32px !important;
+   }
+}

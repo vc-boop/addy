@@ -1,0 +1,437 @@
+/* ===========================================================
+ *
+ *  Name:          selectordie_dev.css
+ *  Updated:       2014-10-10
+ *  Created by:    Per V @ Vst.mn
+ *  What?:         Base CSS for Select or Die
+ *
+ *  Copyright (c) 2014 Per Vestman
+ *  Dual licensed under the MIT and GPL licenses.
+ *
+ *  No, I don't usually comment my CSS, but in this
+ *  case it might "help" someone.
+ *
+ *  Oddny | Cogs 'n Kegs
+ * =========================================================== */
+
+/* Remove, change to fit your needs */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,700);
+
+.sod_select,
+.sod_select *
+    {
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+
+     -webkit-touch-callout: none;
+       -webkit-user-select: none;
+          -moz-user-select: none;
+           -ms-user-select: none;
+               user-select: none;
+    }
+
+/* The SoD - Please keep this first three lines intact, otherwise all hell will break looooooose */
+.sod_select
+    {
+        position: relative;
+        display: inline-block;
+        padding: 15px 10px;
+        width: 200px;
+        /* text-transform: uppercase; */
+        outline: 0;
+        outline-offset: -2px; /* Opera */
+        border: 3px solid #5e5e5e;
+        background: #ffffff;
+        color: #444444;
+        text-align: left;
+        font-weight: 700;
+        font-size: 11px;
+        line-height: 1;
+        cursor: default;
+    }
+
+    /* Up/Down arrows */
+
+    /* Change the border color on hover, focus and when open */
+    .sod_select:hover,
+    .sod_select.open { border-color: #393939; }
+
+        .sod_select.open { color: #919191; }
+        .sod_select.focus { box-shadow: 0 0 5px rgba(0,0,0,.2); }
+
+    /* When the entire SoD is disabled, go crazy! */
+    .sod_select.disabled
+        {
+            border-color: #828282;
+            color: #b2b2b2;
+            cursor: not-allowed;
+        }
+
+    /* The "label", or whatever we should call it. Keep the first three lines for truncating. */
+    .sod_select .sod_label
+        {
+            display: block;
+            overflow: hidden;
+            padding-right: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sod_select .sod_prefix { /* Use this if you're using a prefix and want to style it */ }
+        .sod_select .sod_placeholder { /* Use this if you're using a placeholder and want to style it */ }
+
+    /* Options list wrapper */
+    .sod_select .sod_list_wrapper
+        {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2;
+            margin: 0 0 0 -3px;
+            width: 200px;
+            /*display: none;*/
+            height: auto;
+            /*border: 3px solid #000000;*/
+            border-top: none;
+            color: #444444;
+            font-weight: 300;
+	    -webkit-transition: opacity 0.2s;
+	    transition: opacity 0.2s;
+
+        }
+
+        /* Shows the option list (don't edit) */
+         .sod_select.open .sod_list_wrapper { display: block; opacity: 1;  }
+
+        /* Don't display the options when  */
+        .sod_select.disabled.open .sod_list_wrapper { display: none;  }
+
+        /* When the option list is displayed above the SoD */
+        .sod_select.above .sod_list_wrapper
+            {
+                top: auto;
+                bottom: 100%;
+               /* border-top: 3px solid #000000; */
+                border-bottom: none;
+            }
+
+    /* Options list container */
+    .sod_select .sod_list
+        {
+            display: block;
+            overflow-y: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* All the options. Keep the first three lines for truncating... */
+        .sod_select .sod_option
+            {
+                position: relative;
+                display: block;
+                overflow: hidden;
+                padding: 10px 10px;
+                list-style-type: none;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            /* Optgroups */
+            .sod_select .sod_option.optgroup,
+            .sod_select .sod_option.optgroup.disabled
+                {
+                    background: inherit;
+                    color: #939393;
+                    font-style: italic;
+                    font-size: 10px;
+                }
+
+                /* Children of an optgroup */
+                .sod_select .sod_option.groupchild { padding-left: 20px; }
+
+            /* Used together with placeholderOption / data-placeholder-option */
+            .sod_select .sod_option.is-placeholder {
+                display: none;
+            }
+
+            /* Disabled option */
+            .sod_select .sod_option.disabled
+                {
+                    background: inherit;
+                    color: #cccccc;
+                }
+
+            /* Hover state for options, also used when a user uses his/hers up/down keys */
+           /* .sod_select .sod_option.active
+                                {
+                    background: #f7f7f7;
+                    color: #373737;
+                }
+            */
+            /*Make room for the check mark */
+            .sod_select .sod_option.selected
+                {
+                    padding-right: 25px;
+                    font-weight: 700;
+                }
+
+                /* Displays a check mark for the selected option */
+                .sod_select .sod_option.selected:before
+                    {
+                        position: absolute;
+                        top: 50%;
+                        right: 10px;
+                        display: inline-block;
+                        width: 10px;
+                        height: 9px;
+                        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMTAgOSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAgOSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRDlEOUQ4IiBkPSJNNCw2LjdDMy42LDYuMywzLjUsNi4xLDMuMSw1LjdDMi42LDUuMiwyLDQuNiwxLjUsNC4xYy0wLjgtMC44LTIsMC40LTEuMiwxLjJjMC45LDAuOSwxLjksMS45LDIuOCwyLjgNCgkJYzAuNywwLjcsMS4zLDEsMiwwQzYuNyw2LDguMywzLjcsOS44LDEuNUMxMC41LDAuNSw5LTAuMyw4LjMsMC42bDAsMEM2LjcsMi45LDUuNyw0LjQsNCw2LjciLz4NCjwvZz4NCjwvc3ZnPg0K);
+                        color: #808080;
+                        content: "";
+                        -webkit-transform: translateY(-50%);
+                            -ms-transform: translateY(-50%);
+                                transform: translateY(-50%);
+                    }
+
+                /* Add a .no_highlight class to you SoD to hide the check mark and don't bold the option */
+                .sod_select.no_highlight .sod_option.selected { font-weight: 300; }
+                .sod_select.no_highlight .sod_option.selected:before { display: none; }
+
+            .sod_select .sod_option.link { /* If data-link is set on a specific option */ }
+            .sod_select .sod_option.linkexternal { /* If data-link-external is set on a specific option */ }
+
+
+
+    /* Hide native select */
+    .sod_select select { display: none !important; }
+
+        /* The native select in touch mode. Keep this first line. Sorry, keep everything. */
+        .sod_select.touch select
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                display: block !important;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+
+                -webkit-appearance: menulist-button;
+            }
+
+
+
+
+
+
+.sod_select,
+.sod_option,
+.sod_label {
+   -webkit-transition: 0.2s !important;
+   transition: 0.2s !important;
+}
+
+.sod_label {
+  max-width: 95%;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.sod_select:hover,
+.sod_select:focus,
+.sod_select.open  {
+  opacity: 1;
+}
+
+.sod_select,
+.sod_option {
+   cursor: pointer;
+}
+
+.sod_select,
+.sod_select .sod_option.selected {
+   font-weight: normal;
+   /*font-size: 16px;*/
+   font-size: 1.142rem;
+}
+
+.sod_select .sod_option.selected {
+   font-weight: 300;
+}
+
+.sod_select .sod_option.selected:before {
+   background: none;
+}
+
+.sod_select .sod_option:hover {
+   color: #97c9ef !important;
+}
+
+.sod_select,
+.sod_select .sod_list_wrapper {
+   max-width: 360px;
+   width: 100%;
+   border: 0;
+   font-family: 'Lato', sans-serif;
+}
+
+.sod_select .sod_list_wrapper {
+  margin: 0;
+  margin-top: 1px;
+}
+
+.sod_select .sod_option.active {
+  background: inherit;
+}
+
+.sod_select {
+  background: transparent;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.sod_select.open, .sod_select.open {
+   color: inherit;
+}
+
+.sod_select.focus {
+   box-shadow: none;
+}
+
+.sod_select {
+   margin-top: 1.49px;
+   padding: 0.7em 2px 0.77em 0;
+}
+
+.sod_select .sod_option {
+  padding: 0.812em 0.125em 1em 0;
+}
+
+.sod_select {
+  opacity: 0.5;
+}
+
+.sod_select:hover,
+.sod_select.open {
+  opacity: 1;
+}
+
+.sod_select:after
+        {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  margin-top: -0.5em;
+  width: 1em;
+  height: 1em;
+  color: #9f9c9c;
+  font-family: 'Lato', sans-serif;
+  -webkit-transition: -webkit-transform 0.8s;
+  transition: transform 0.8s;
+}
+
+.sod_select.open:after {
+  -webkit-transform: rotate(45deg) translate3d(0, 0, 0);
+  transform: rotate(45deg) translate3d(0, 0, 0);
+}
+
+/* IE 9-10-11 hack */
+.sod_list_wrapper {
+    margin-top: 2px\0 !important;
+}
+/* IE 9-10-11 hack end */
+
+
+/* Custom Fading Animation */
+
+.sod_option {
+   opacity: 0;
+   -webkit-transition: -webkit-transform 0.7s, color 0.2s, border 0.2s, opacity 0.7s !important;
+   transition: transform 0.7s, color 0.2s, border 0.2s, opacity 0.7s !important;
+   -webkit-transform: translateX(100%);
+   transform: translateX(100%);
+}
+
+.sod_list {
+  overflow: hidden;
+}
+
+.sod_select.open .show-animation {
+     -webkit-animation: show-opacity 1s;
+     animation: show-opacity 1s;
+
+     animation-fill-mode: forwards;
+     -webkit-animation-fill-mode: forwards;
+}
+
+.sod_select:not(.open) .hide-animation {
+     -webkit-animation: hide-opacity 1s;
+     animation: hide-opacity 1s;
+     -webkit-animation-delay: 1s;
+     animation-delay: 1s;
+
+     animation-fill-mode: forwards;
+     -webkit-animation-fill-mode: forwards;
+}
+
+.transform-remove {
+     opacity: 1;
+     -webkit-transform: translateX(0);
+     transform: translateX(0);
+}
+
+/* End */
+
+
+
+body.light .sod_select,
+body.light .sod_option,
+body.light .sod_label {
+   color: #373737;
+}
+
+body.light .sod_list_wrapper {
+   background: #fff;
+}
+
+body.light .sod_select .sod_option:hover {
+   border-bottom: 1px #97c9ef solid !important;
+}
+
+body.light .sod_select {
+  border-bottom: 1px rgba(57, 57, 57, 1) solid;
+}
+
+body.light .sod_list .sod_option {
+   border-bottom: 1px #373737 solid;
+}
+
+body.light .sod_select:after {
+  content: url('../img/ico/light/select.svg');
+}
+
+
+
+
+body.dark .sod_select,
+body.dark .sod_option,
+body.dark .sod_label {
+   color: #fff;
+}
+
+body.dark .sod_list_wrapper {
+   background: #373737;
+}
+
+body.dark .sod_select {
+  border-bottom: 1px rgba(255, 255, 255, 1) solid;
+}
+
+body.dark .sod_list .sod_option {
+   border-bottom: 1px rgba(255, 255, 255, 1) solid;
+}
+
+body.dark .sod_select:after {
+  content: url('../img/ico/dark/select.svg');
+}
